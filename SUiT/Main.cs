@@ -3,7 +3,17 @@
 using System;
 using System.Runtime.CompilerServices;
 
-// CMD I: THOU SHALT NOT "using Unit;"!
+// CMD   I:  THOU SHALT NOT "using Unit;"!  
+// CMD  II:  THOU SHALT NOT "using System.Diagnostics;"!
+// CMD III:  THOU SHALT USE "Loader.Assert" FOR ALL ASSERTATIONS!
+// CMD  IV:  THOU SHALT USE ONLY static TEST METHODS FROM THE Loader!
+// CMD   V:  THOU SHALT WRAP ALL SAID TEST METHODS USING RunWrapper!
+// CMD  VI:  THOU SHALT NOT EVER, UNDER ANY CIRCUMSTANCE, OR FOR ANY REASON, 
+//             SANE OR OTHERWISE, CREATE A TEST THAT WRITES OUTPUT TO THE SHELL,
+//             LEAST YOU SMITE ALL THE OUTPUT WITH A CURSE LASTING TO THE END OF YOUR GENERATIONS!
+// CMD VII:  IN THE EVENT YOU HAVE BROKEN ANY ONE OF THESE CMDs, THOU SHALT CUT
+//             DOWN A TREE WITH A HERING THAT THOU MIGHT BE FORGIVEN THY TRESSPASS!
+//             MAYBE!  JUST MAYBE!  IF THE MOOD STRIKES ME, THAT IS!
 
 namespace Unit.SelfTest {
 	// Constants for System.Environment.Exit
@@ -100,6 +110,7 @@ namespace Unit.SelfTest {
 			
 			RunWrapper( "Testing Engine Setup/Clean[up]", EngineTest.Run );
 			RunWrapper( "Testing Suite Setup/Clean[up]", SuiteTest.Run );
+			RunWrapper( "Testing Test Setup/Test/Clean[up]", TestTest.Run );
 		}
 	}
 }
