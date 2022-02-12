@@ -34,7 +34,7 @@ namespace Unit.SelfTest {
 
 		public SuiteTest() {
 			Reset();
-			tstsut = new Unit.Suite( "SuiteTest" );
+			tstsut = new Unit.Suite( null );
 		}
 
 		public void Reset() {
