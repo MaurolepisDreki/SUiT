@@ -3,6 +3,8 @@
 using System;
 using System.Runtime.CompilerServices;
 
+// CMD I: THOU SHALT NOT "using Unit;"!
+
 namespace Unit.SelfTest {
 	// Constants for System.Environment.Exit
 	//   C# could learn a thing or two from C (including how to dynamically cast enums to ints)
@@ -32,7 +34,7 @@ namespace Unit.SelfTest {
 				
 		// Do Run-Length Decode on string
 		//   NOTE: callFile & callLine are included exclusivly for correctly 
-		//      identifying the cause of our assertation failure.  (No guessing, human!)
+		//      identifying the cause of our assertation failure.  (No guessing, Human!)
 		static string RunLengthDecoder( string str, int len = 1, 
 				[CallerFilePath] string callFile = "", [CallerLineNumber] int callLine = 0 ) {
 			/*********************************************************************/
@@ -57,7 +59,11 @@ namespace Unit.SelfTest {
 
 		static void Print_Heading() {
 			Console.WriteLine();
-			Console.WriteLine( $"{{0}}{Unit.LibInfo.NAME}",
+			Console.WriteLine( $"{{0}}{Unit.LibInfo.NAME}  {Unit.LibInfo.VERSION.STRING}",
+				RunLengthDecoder( _indent, 2 ) );
+			Console.WriteLine( $"{{0}}Self-Test Loader \"SUiT\"",
+				RunLengthDecoder( _indent, 3 ) );
+			Console.WriteLine( $"{{0}} \u00A9MMXXII  Maurolepis Dreki",
 				RunLengthDecoder( _indent, 2 ) );
 			Console.WriteLine();
 		}
