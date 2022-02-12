@@ -20,14 +20,18 @@ namespace Unit.SelfTest {
 		//   They are when the program assumes a truth that proves false when checked.
 		//   E.g. xmalloc( size ) { tmp = malloc( size ); Assert( tmp != null ); return tmp; }
 		//   Many conisider this do-or-die mentality bad, and perhapse it is overused, but it is essential.
-		static void Assert( bool expr, 
+		public static void Assert( bool expr, 
 				[CallerFilePath] string where = "",
 				[CallerLineNumber] int when = 0,
 				[CallerMemberName] string who = "",
 				[CallerArgumentExpression( "expr" )] string what = "" ) {
 			/*********************************************************************/
 			if( ! expr ) {
-				Console.WriteLine( $" ASSERT: {who} [{where}:{when}]: {what}" );
+				ConsoleColor cc = Console.ForegroundColor;
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.Write( $" ASSERT: {who} [{where}:{when}]: " );
+				Console.ForegroundColor = cc;
+				Console.WriteLine( what );
 				System.Environment.Exit( EXIT.FAILURE );
 			}
 		}
@@ -35,7 +39,7 @@ namespace Unit.SelfTest {
 		// Do Run-Length Decode on string
 		//   NOTE: callFile & callLine are included exclusivly for correctly 
 		//      identifying the cause of our assertation failure.  (No guessing, Human!)
-		static string RunLengthDecoder( string str, int len = 1, 
+		public static string RunLengthDecoder( string str, int len = 1, 
 				[CallerFilePath] string callFile = "", [CallerLineNumber] int callLine = 0 ) {
 			/*********************************************************************/
 			// Validate Input
@@ -57,7 +61,8 @@ namespace Unit.SelfTest {
 			return ret;
 		}
 
-		static void Print_Heading() {
+		// Application Heading
+		private static void Print_Heading() {
 			Console.WriteLine();
 			Console.WriteLine( $"{{0}}{Unit.LibInfo.NAME}  {Unit.LibInfo.VERSION.STRING}",
 				RunLengthDecoder( _indent, 2 ) );
@@ -68,8 +73,32 @@ namespace Unit.SelfTest {
 			Console.WriteLine();
 		}
 
-		static void Main () {
+		// Wraps the/a Test Runner in output text so the user is not left hanging
+		public static void RunWrapper( string msg, Action cb ) {
+			ConsoleColor cc;
+
+			// Print Message and Run Callback
+			Console.WriteLine( $"{msg}..." );
+			cb();
+
+			// Get Current Console Data
+			cc = Console.ForegroundColor;
+
+			// Append "OK" to message in Green
+			Console.CursorTop--;
+			Console.Write( $"{msg}... " );
+			Console.ForegroundColor = ConsoleColor.Green;
+			Console.WriteLine( "OK" );
+
+			// Reset Console Data
+			Console.ForegroundColor = cc;
+		}
+
+		// Loader
+		private static void Main () {
 			Print_Heading();
+			
+			RunWrapper( "Testing Engine Setup/Clean[up]", EngineTest.Run );
 		}
 	}
 }
