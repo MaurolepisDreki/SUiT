@@ -99,6 +99,7 @@ namespace Unit.SelfTest {
 			Print_Heading();
 			
 			RunWrapper( "Testing Engine Setup/Clean[up]", EngineTest.Run );
+			RunWrapper( "Testing Suite Setup/Clean[up]", SuiteTest.Run );
 		}
 	}
 }
